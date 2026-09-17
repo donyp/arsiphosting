@@ -1,0 +1,350 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║         🔧 SETUP SENDIRI TANPA SSH - npm install & PM2                   ║
+║                                                                           ║
+║     Cara DIY tanpa hubungi support (butuh sedikit kreativitas)            ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+✅ BISA SETUP SENDIRI!
+═════════════════════════════════════════════════════════════════════════════
+
+Walaupun tidak ada Terminal/SSH, ada beberapa cara:
+
+1. Cron Job (paling mudah)
+2. PHP script untuk jalankan shell command
+3. Node.js HTTP server (auto-run saat boot)
+4. File watcher (monitor file changes)
+
+
+═══════════════════════════════════════════════════════════════════════════
+OPSI 1: CRON JOB (PALING MUDAH - RECOMMENDED)
+═══════════════════════════════════════════════════════════════════════════
+
+Ini cara tercepat & paling aman!
+
+STEP 1: Buka cPanel → Cron Jobs
+
+STEP 2: Buat Cron Job baru:
+
+   Command:
+   cd /home/arsipdig/public_html/arsiphosting && npm install
+
+   Common Settings:
+   Frequency: Custom
+   Minute: * (setiap menit)
+   Hour: * (setiap jam)
+   Day: * (setiap hari)
+   Month: * (setiap bulan)
+   Weekday: * (setiap hari)
+
+   Atau pilih: "Once" jika hanya ingin jalankan 1x saja
+
+STEP 3: Klik "Add New Cron Job"
+
+STEP 4: Tunggu eksekusi (biasanya langsung jalankan)
+
+OUTPUT:
+   Cron akan jalankan: cd /home/arsipdig/public_html/arsiphosting && npm install
+   
+   Hasil:
+   ✓ node_modules/ folder akan terbuat
+   ✓ package-lock.json akan terbuat
+   ✓ Semua dependencies terinstall
+
+VERIFIKASI:
+   1. Buka File Manager → /arsiphosting/
+   2. Cek apakah folder "node_modules" ada
+   3. Jika ada, npm install BERHASIL!
+
+
+═══════════════════════════════════════════════════════════════════════════
+OPSI 2: BUAT PHP SCRIPT UNTUK JALANKAN npm
+═══════════════════════════════════════════════════════════════════════════
+
+Gunakan PHP untuk jalankan command (jika PHP exec() tidak di-disable):
+
+STEP 1: Buat file baru di /arsiphosting/: setup.php
+
+File: /arsiphosting/setup.php
+═════════════════════════════════════════════════════════════════════════════
+
+<?php
+// Security check - hanya jalankan sekali
+if (file_exists('/tmp/npm_install_done')) {
+    echo "npm install sudah pernah dijalankan. Cek /arsiphosting/node_modules/";
+    exit;
+}
+
+// Jika tidak di-execute sebagai CLI, cek password
+$password = $_GET['pwd'] ?? '';
+if ($password !== 'your-secret-password-here') {
+    echo "Akses ditolak!";
+    exit;
+}
+
+echo "<pre>";
+echo "Memulai npm install...\n\n";
+
+// Ganti dengan path yang benar
+chdir('/home/arsipdig/public_html/arsiphosting');
+
+// Jalankan npm install
+$output = shell_exec('npm install 2>&1');
+echo $output;
+
+// Mark as done
+touch('/tmp/npm_install_done');
+
+echo "\n\nSelesai! Cek node_modules folder di /arsiphosting/";
+echo "</pre>";
+?>
+
+═════════════════════════════════════════════════════════════════════════════
+
+STEP 2: Upload file setup.php ke /arsiphosting/
+
+STEP 3: Buka di browser:
+   https://arsipdigitalanka.my.id/setup.php?pwd=your-secret-password-here
+
+STEP 4: Script akan jalankan npm install dan tampilkan output
+
+OUTPUT di browser:
+   ✓ Bisa lihat real-time progress
+   ✓ Bisa lihat error messages
+   ✓ Bisa verify keberhasilan
+
+VERIFIKASI:
+   1. Tunggu sampai selesai di browser
+   2. Buka File Manager → cek node_modules/ ada
+   3. Delete setup.php (untuk security)
+
+
+═══════════════════════════════════════════════════════════════════════════
+OPSI 3: BUAT INSTALL SCRIPT - NODE.JS HTTP SERVER
+═══════════════════════════════════════════════════════════════════════════
+
+Ini lebih professional, langsung pakai Node.js:
+
+STEP 1: Buat file: /arsiphosting/install-dependencies.js
+
+File: /arsiphosting/install-dependencies.js
+═════════════════════════════════════════════════════════════════════════════
+
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+
+const logFile = path.join(__dirname, 'install-log.txt');
+
+function log(message) {
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] ${message}\n`;
+  console.log(logMessage);
+  fs.appendFileSync(logFile, logMessage);
+}
+
+log('========== NPM INSTALL START ==========');
+
+try {
+  // Check if node_modules exists
+  if (fs.existsSync(path.join(__dirname, 'node_modules'))) {
+    log('node_modules sudah ada. Skip npm install.');
+    log('========== COMPLETE ==========');
+    process.exit(0);
+  }
+
+  // Run npm install
+  log('Running: npm install...');
+  const result = execSync('npm install', {
+    cwd: __dirname,
+    encoding: 'utf-8',
+    stdio: 'pipe'
+  });
+  
+  log('npm install output:');
+  log(result);
+  
+  log('========== NPM INSTALL COMPLETE ==========');
+  
+  // Setup PM2
+  log('Installing PM2...');
+  execSync('npm install -g pm2', {
+    encoding: 'utf-8',
+    stdio: 'pipe'
+  });
+  
+  log('PM2 installed successfully');
+  log('========== ALL DONE ==========');
+  
+} catch (error) {
+  log('ERROR: ' + error.message);
+  log('Error output: ' + error.stdout);
+  process.exit(1);
+}
+
+═════════════════════════════════════════════════════════════════════════════
+
+STEP 2: Upload file install-dependencies.js ke /arsiphosting/
+
+STEP 3: Via Cron Job atau manual, jalankan:
+   node /home/arsipdig/public_html/arsiphosting/install-dependencies.js
+
+STEP 4: Check hasil di: install-log.txt
+
+
+═══════════════════════════════════════════════════════════════════════════
+OPSI 4: SETUP PM2 - ECOSYSTEM CONFIG
+═══════════════════════════════════════════════════════════════════════════
+
+Untuk auto-start aplikasi dengan PM2:
+
+STEP 1: Buat file: /arsiphosting/ecosystem.config.js
+
+File sudah ada di repo! Cek file: ecosystem.config.js
+
+Isi standard:
+═════════════════════════════════════════════════════════════════════════════
+
+module.exports = {
+  apps: [
+    {
+      name: 'arsiphosting',
+      script: './backend/server.js',
+      instances: 1,
+      exec_mode: 'cluster',
+      env: {
+        NODE_ENV: 'production',
+        PORT: 8080
+      },
+      error_file: './logs/err.log',
+      out_file: './logs/out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    }
+  ]
+};
+
+═════════════════════════════════════════════════════════════════════════════
+
+STEP 2: Buat folder logs (jika belum ada):
+   File Manager → /arsiphosting/ → Create Folder → "logs"
+
+STEP 3: Jalankan via Cron Job:
+   pm2 start /home/arsipdig/public_html/arsiphosting/ecosystem.config.js
+   pm2 save
+   pm2 startup
+
+STEP 4: Aplikasi akan auto-start saat server restart
+
+
+═══════════════════════════════════════════════════════════════════════════
+CHECKLIST: SETUP SENDIRI
+═══════════════════════════════════════════════════════════════════════════
+
+Verifikasi di File Manager setelah setup:
+
+✅ Struktur:
+   /arsiphosting/
+   ├── backend/
+   ├── node_modules/        ← HARUS ADA setelah npm install
+   ├── package.json
+   ├── package-lock.json    ← HARUS ADA setelah npm install
+   ├── .env                 ← File konfigurasi Supabase
+   ├── ecosystem.config.js
+   ├── setup.php (optional)
+   ├── install-dependencies.js (optional)
+   └── logs/                ← For PM2 logs
+
+✅ File Wajib:
+   [ ] .env (dengan Supabase credentials)
+   [ ] backend/server.js
+   [ ] package.json
+   [ ] node_modules/ (folder)
+
+✅ Database:
+   [ ] Supabase sudah setup
+   [ ] SUPABASE_URL ada di .env
+   [ ] SUPABASE_SERVICE_ROLE_KEY ada di .env
+
+
+═══════════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════
+
+❌ Problem: Cron Job error "npm not found"
+✅ Solution:
+   - npm mungkin belum installed
+   - Contact support: "Install Node.js dan npm"
+   - Atau gunakan Softaculous untuk install
+
+❌ Problem: PHP script tidak bisa execute
+✅ Solution:
+   - PHP exec() mungkin di-disable
+   - Contact support: "Enable PHP exec() function"
+   - Atau gunakan Cron Job approach
+
+❌ Problem: node_modules tidak terbuat
+✅ Solution:
+   - Check permission folder (harus writable)
+   - npm install mungkin error (cek install-log.txt)
+   - Coba ulang atau contact support
+
+❌ Problem: PM2 tidak jalan
+✅ Solution:
+   - PM2 harus global install dulu
+   - Jalankan: npm install -g pm2
+   - Setelah itu: pm2 start ecosystem.config.js
+
+
+═══════════════════════════════════════════════════════════════════════════
+RANKING OPSI (PALING MUDAH → TERSULIT)
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣ CRON JOB (Recommended!)
+   Pros: Paling mudah, secure, no risk
+   Cons: Perlu akses Cron Jobs
+   Difficulty: ⭐ Easy
+
+2️⃣ PHP SCRIPT
+   Pros: Bisa lihat real-time progress
+   Cons: PHP exec() mungkin di-disable
+   Difficulty: ⭐⭐ Medium
+
+3️⃣ NODE.JS INSTALL SCRIPT
+   Pros: Professional, automated
+   Cons: Butuh setup lebih kompleks
+   Difficulty: ⭐⭐ Medium
+
+4️⃣ PM2 ECOSYSTEM
+   Pros: Production-ready
+   Cons: Butuh npm install berhasil dulu
+   Difficulty: ⭐⭐⭐ Hard
+
+
+═══════════════════════════════════════════════════════════════════════════
+REKOMENDASI SAYA
+═══════════════════════════════════════════════════════════════════════════
+
+STEP-BY-STEP YANG MUDAH:
+
+1. Coba CRON JOB dulu:
+   cPanel → Cron Jobs → Add:
+   cd /home/arsipdig/public_html/arsiphosting && npm install
+
+2. Tunggu Cron dijalankan
+
+3. Verifikasi di File Manager apakah node_modules ada
+
+4. Jika oke, setup PM2 via Cron juga:
+   pm2 start /home/arsipdig/public_html/arsiphosting/ecosystem.config.js
+
+5. Done! Aplikasi seharusnya sudah jalan.
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+KESIMPULAN: YA, BISA SETUP SENDIRI!
+
+Cron Job adalah cara tercepat & termudah tanpa perlu contact support.
+
+═══════════════════════════════════════════════════════════════════════════
