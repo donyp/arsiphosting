@@ -1,0 +1,243 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║            🔧 SSH CONNECTION TROUBLESHOOTING                             ║
+║         Error: "Connection refused" di port 22                           ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+📋 ERROR ANALYSIS
+═════════════════════════════════════════════════════════════════════════════
+
+Error Message:
+  "ssh: connect to host arsipdigitalanka.my.id port 22: Connection refused"
+
+Arti:
+  ✗ SSH server tidak responding di port 22
+  ✗ Hosting tidak mengaktifkan SSH access
+  ✗ Firewall blocking connection
+  ✗ Port SSH tidak aktif
+
+
+═══════════════════════════════════════════════════════════════════════════
+SOLUSI 1: GUNAKAN CPANEL TERMINAL (RECOMMENDED)
+═══════════════════════════════════════════════════════════════════════════
+
+Jika SSH tidak bisa, gunakan cPanel Terminal yang ada di control panel.
+
+STEP 1: Buka cPanel
+───────────────────────────────────────────────────────────────────────────
+
+URL cPanel:
+  https://arsipdigitalanka.my.id:2083
+  atau
+  https://mail.arsipdigitalanka.my.id:2083
+  atau
+  https://panel.arsipdigitalanka.my.id:2083
+
+Login:
+  Username: arsipdig (atau email Anda)
+  Password: (password hosting)
+
+
+STEP 2: Cari Terminal atau Command Line
+───────────────────────────────────────────────────────────────────────────
+
+Di cPanel Dashboard:
+
+  Cari icon "Terminal" atau "Command Line"
+  
+  Biasanya di folder: "Advanced"
+  atau search box di atas
+
+
+STEP 3: Klik Terminal
+───────────────────────────────────────────────────────────────────────────
+
+Akan membuka terminal langsung di browser:
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Terminal                                                               │
+│  ────────────────────────────────────────────────────────────────────── │
+│                                                                         │
+│  [arsipdig@server ~]$  ← Prompt terminal                               │
+│                                                                         │
+│  [Anda bisa ketik command di sini]                                     │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+STEP 4: Jalankan Commands
+───────────────────────────────────────────────────────────────────────────
+
+Sekarang Anda bisa langsung jalankan commands:
+
+  [arsipdig@server ~]$ cd ~
+  [arsipdig@server ~]$ git clone https://github.com/donyp/arsiphosting.git
+  [arsipdig@server ~]$ cd arsiphosting
+  [arsipdig@server arsiphosting]$ npm install
+  [arsipdig@server arsiphosting]$ git status
+
+
+═══════════════════════════════════════════════════════════════════════════
+SOLUSI 2: ENABLE SSH ACCESS DI CPANEL
+═══════════════════════════════════════════════════════════════════════════
+
+Jika ingin enable SSH access dari terminal biasa:
+
+STEP 1: Buka cPanel
+───────────────────────────────────────────────────────────────────────────
+
+URL: https://arsipdigitalanka.my.id:2083
+
+
+STEP 2: Cari SSH/Shell Access
+───────────────────────────────────────────────────────────────────────────
+
+Di cPanel, cari:
+  - "SSH/Shell Access"
+  - "SSH Keys"
+  - atau di Advanced section
+
+
+STEP 3: Enable SSH
+───────────────────────────────────────────────────────────────────────────
+
+Click: "Manage SSH Keys" atau "Enable SSH"
+
+
+STEP 4: Verify SSH Port
+───────────────────────────────────────────────────────────────────────────
+
+SSH port mungkin bukan 22, bisa:
+  - Port 22 (default)
+  - Port 2222
+  - Port 2220
+  - Custom port lainnya
+
+Caranya verify:
+  1. Check cPanel settings
+  2. Atau contact support
+
+
+═══════════════════════════════════════════════════════════════════════════
+SOLUSI 3: GUNAKAN FILE MANAGER CPANEL
+═══════════════════════════════════════════════════════════════════════════
+
+Jika tidak ingin pakai terminal, upload files manual:
+
+STEP 1: Download Repository sebagai ZIP
+───────────────────────────────────────────────────────────────────────────
+
+1. Buka: https://github.com/donyp/arsiphosting
+2. Klik: "Code" → "Download ZIP"
+3. Simpan file: arsiphosting.zip
+
+
+STEP 2: Upload ke cPanel
+───────────────────────────────────────────────────────────────────────────
+
+1. Buka cPanel → File Manager
+2. Navigate ke: public_html/
+3. Upload file arsiphosting.zip
+4. Klik kanan → Extract
+
+
+STEP 3: Setup Aplikasi
+───────────────────────────────────────────────────────────────────────────
+
+1. Buka cPanel → Terminal (atau SSH jika sudah enable)
+2. cd ke folder aplikasi
+3. npm install
+4. Setup .env file
+
+
+═══════════════════════════════════════════════════════════════════════════
+SOLUSI 4: CONTACT HOSTING SUPPORT
+═══════════════════════════════════════════════════════════════════════════
+
+Jika SSH masih tidak bisa, hubungi support:
+
+Indowebsite Support:
+  Email: support@indowebsite.com
+  Chat: Via cPanel
+  Portal: https://indowebsite.com
+
+Minta tolong untuk:
+  1. Enable SSH access di account
+  2. Verify SSH port number
+  3. Check firewall settings
+
+
+═══════════════════════════════════════════════════════════════════════════
+RECOMMENDED APPROACH (PALING MUDAH)
+═══════════════════════════════════════════════════════════════════════════
+
+✅ LANGKAH 1: Gunakan cPanel Terminal
+   └─ Tidak perlu SSH, built-in di cPanel
+   └─ Langsung bisa jalankan commands
+   └─ Paling mudah & langsung
+
+JIKA cPanel Terminal tidak ada:
+
+✅ LANGKAH 2: Hubungi Support
+   └─ Minta enable SSH access
+   └─ Atau minta tolong setup
+
+JIKA ingin setup manual:
+
+✅ LANGKAH 3: Download ZIP & Upload Manual
+   └─ Download dari GitHub
+   └─ Upload ke cPanel File Manager
+   └─ Extract dan setup
+
+
+═══════════════════════════════════════════════════════════════════════════
+QUICK FIX - TRY THIS FIRST
+═══════════════════════════════════════════════════════════════════════════
+
+1. BUKA CPANEL
+   URL: https://arsipdigitalanka.my.id:2083
+   Login: arsipdig / [password]
+
+2. CARI & KLIK TERMINAL
+   (Usually di Advanced section atau search)
+
+3. JALANKAN COMMAND
+   
+   cd ~
+   git clone https://github.com/donyp/arsiphosting.git
+   cd arsiphosting
+   npm install
+
+4. DONE!
+
+
+═══════════════════════════════════════════════════════════════════════════
+ALTERNATIVE - JIKA TERMINAL TIDAK KETEMU
+═══════════════════════════════════════════════════════════════════════════
+
+Cari di cPanel:
+  - "Advanced" section
+  - "Terminal"
+  - "Shell"
+  - "Command Line"
+  - Search box (ketik "terminal")
+
+
+═══════════════════════════════════════════════════════════════════════════
+📞 SUPPORT
+═══════════════════════════════════════════════════════════════════════════
+
+Indowebsite:
+  Email: support@indowebsite.com
+  Chat: cPanel support
+  Phone: (cek email dari hosting)
+
+Minta: "Enable SSH access atau kontrol lewat cPanel Terminal"
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+✨ RECOMMENDED: Gunakan cPanel Terminal (solusi 1)
+
+═══════════════════════════════════════════════════════════════════════════
