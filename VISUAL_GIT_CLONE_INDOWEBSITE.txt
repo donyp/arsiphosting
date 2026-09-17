@@ -1,0 +1,311 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║            🎨 VISUAL GUIDE - GIT CLONE DI INDOWEBSITE                    ║
+║                   Dengan screenshot & diagram                             ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+DIAGRAM ALUR GIT CLONE
+═════════════════════════════════════════════════════════════════════════════
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                         KOMPUTER ANDA                                    │
+│                    (Windows/Mac/Linux)                                   │
+│                                                                          │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  Terminal / PowerShell / Command Prompt                         │   │
+│  │                                                                 │   │
+│  │  $ ssh username@mail.arsipdig.com                              │   │
+│  │  password: [ketik password]                                    │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                              │                                           │
+│                              │ SSH Connection                            │
+│                              ▼                                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
+                                │
+                                │ ENCRYPTED CONNECTION
+                                │
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    INDOWEBSITE HOSTING SERVER                            │
+│                       (Linux Server)                                     │
+│                    /home/username/                                       │
+│                                                                          │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  [username@hosting ~]$ cd ~                                    │   │
+│  │  [username@hosting ~]$ git clone https://github.com/...       │   │
+│  │  Cloning into 'arsiphosting'...                                │   │
+│  │  ████████████████ 100%                                          │   │
+│  │                                                                 │   │
+│  │  [username@hosting ~]$ cd arsiphosting                         │   │
+│  │  [username@hosting arsiphosting]$ npm install                  │   │
+│  │  ████████████████ 100%                                          │   │
+│  │                                                                 │   │
+│  │  [username@hosting arsiphosting]$ ls -la                       │   │
+│  │  -rw-r--r--  backend/                                          │   │
+│  │  -rw-r--r--  js/                                               │   │
+│  │  -rw-r--r--  css/                                              │   │
+│  │  -rw-r--r--  package.json                                      │   │
+│  │  ✓ SUCCESS!                                                    │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                                                                          │
+│  /home/username/arsiphosting/                                           │
+│  ├── backend/                                                           │
+│  ├── js/                                                                │
+│  ├── css/                                                               │
+│  ├── package.json                                                       │
+│  └── (semua files aplikasi)                                             │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+                                │
+                                │ GitHub Connection
+                                │ (saat clone)
+                                ▼
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        GITHUB REPOSITORY                                 │
+│                   github.com/donyp/arsiphosting.git                      │
+│                                                                          │
+│  ├── backend/  (download ke server)                                     │
+│  ├── js/       (download ke server)                                     │
+│  ├── css/      (download ke server)                                     │
+│  ├── package.json                                                       │
+│  └── (semua source code)                                                │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+═════════════════════════════════════════════════════════════════════════════
+STEP-BY-STEP VISUAL DENGAN SCREENSHOT
+═════════════════════════════════════════════════════════════════════════════
+
+STEP 1: BUKA TERMINAL
+────────────────────────────────────────────────────────────────────────────
+
+Windows PowerShell:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Windows PowerShell                                                       │
+│ Copyright (C) Microsoft Corporation.                                    │
+│                                                                         │
+│ PS C:\Users\YourName>  ← Ini adalah prompt (tempat ketik)             │
+│                                                                         │
+│ [Ketik command SSH di sini]                                             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+STEP 2: SSH KE HOSTING
+────────────────────────────────────────────────────────────────────────────
+
+Command:
+  ssh arsipdig@mail.arsipdig.com
+
+Tampilan:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ PS C:\Users\YourName> ssh arsipdig@mail.arsipdig.com                    │
+│ arsipdig@mail.arsipdig.com's password: ________  ← Ketik password      │
+│                                                                         │
+│ Last login: Thu Sep 17 10:30:00 2026 from 192.168.1.1                 │
+│ [arsipdig@hosting ~]$  ← BERHASIL! Sekarang di server                  │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+STEP 3: NAVIGATE KE HOME
+────────────────────────────────────────────────────────────────────────────
+
+Command:
+  cd ~
+
+Tampilan:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ [arsipdig@hosting ~]$ cd ~                                              │
+│ [arsipdig@hosting ~]$  ← Sudah di home directory (/home/arsipdig)      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+STEP 4: GIT CLONE
+────────────────────────────────────────────────────────────────────────────
+
+Command:
+  git clone https://github.com/donyp/arsiphosting.git
+
+Progress:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ [arsipdig@hosting ~]$ git clone https://github.com/donyp/arsiphosting..│
+│ Cloning into 'arsiphosting'...                                          │
+│ remote: Enumerating objects: 4808, done.                                │
+│ ████████████████░░░░░░░░░░░░░░░░░░░░░░░░░  45% (2000/4808)              │
+│                                                                         │
+│ [Tunggu...]                                                             │
+│                                                                         │
+│ remote: Receiving objects: 100% (4808/4808), 36.31 MiB | 7.41 MiB/s   │
+│ Unpacking objects: 100% (4808/4808), done.                              │
+│ [arsipdig@hosting ~]$  ← Clone selesai!                                 │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+⏱️ Waktu: 5-15 menit (tergantung kecepatan internet)
+
+
+STEP 5: NAVIGATE KE FOLDER APLIKASI
+────────────────────────────────────────────────────────────────────────────
+
+Command:
+  cd arsiphosting
+  ls -la
+
+Tampilan:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ [arsipdig@hosting ~]$ cd arsiphosting                                   │
+│ [arsipdig@hosting arsiphosting]$ ls -la                                 │
+│ total 5432                                                              │
+│ drwxr-xr-x 10 arsipdig arsipdig  4096 Sep 17 10:35 .                   │
+│ drwx------  5 arsipdig arsipdig  4096 Sep 17 10:32 ..                   │
+│ -rw-r--r--  1 arsipdig arsipdig  1234 Sep 17 10:32 .env.example        │
+│ -rw-r--r--  1 arsipdig arsipdig  2345 Sep 17 10:32 .gitignore          │
+│ -rw-r--r--  1 arsipdig arsipdig  3456 Sep 17 10:32 package.json        │
+│ -rw-r--r--  1 arsipdig arsipdig  4567 Sep 17 10:32 README.md           │
+│ drwxr-xr-x  5 arsipdig arsipdig  4096 Sep 17 10:35 backend             │
+│ drwxr-xr-x  3 arsipdig arsipdig  4096 Sep 17 10:32 js                  │
+│ drwxr-xr-x  3 arsipdig arsipdig  4096 Sep 17 10:32 css                 │
+│ -rw-r--r--  1 arsipdig arsipdig  5678 Sep 17 10:32 DEPLOY_KE_IND...   │
+│ [arsipdig@hosting arsiphosting]$ ✓ Semua file ada!                      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+STEP 6: NPM INSTALL
+────────────────────────────────────────────────────────────────────────────
+
+Command:
+  npm install
+
+Progress:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ [arsipdig@hosting arsiphosting]$ npm install                             │
+│                                                                         │
+│ npm WARN deprecated ...                                                 │
+│                                                                         │
+│ added 234 packages, and audited 235 packages in 3m 45s                 │
+│                                                                         │
+│ found 0 vulnerabilities                                                 │
+│ npm notice                                                              │
+│ [arsipdig@hosting arsiphosting]$ ✓ npm install selesai!                │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+⏱️ Waktu: 2-5 menit
+
+
+STEP 7: VERIFY
+────────────────────────────────────────────────────────────────────────────
+
+Commands:
+  git status
+  pwd
+
+Tampilan:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ [arsipdig@hosting arsiphosting]$ git status                              │
+│ On branch master                                                        │
+│ Your branch is up to date with 'origin/master'.                        │
+│                                                                         │
+│ nothing to commit, working tree clean                                   │
+│                                                                         │
+│ [arsipdig@hosting arsiphosting]$ pwd                                    │
+│ /home/arsipdig/arsiphosting                                             │
+│                                                                         │
+│ [arsipdig@hosting arsiphosting]$ ✓ SELESAI! Git clone 100% berhasil!   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+═════════════════════════════════════════════════════════════════════════════
+FOLDER STRUCTURE SETELAH CLONE
+═════════════════════════════════════════════════════════════════════════════
+
+/home/arsipdig/arsiphosting/
+│
+├── 📁 backend/
+│   ├── server.js                 ← Main application
+│   ├── .env.example              ← Environment template
+│   ├── 📁 node_modules/          ← Dependencies (created by npm install)
+│   └── (other backend files)
+│
+├── 📁 js/
+│   ├── dashboard.js
+│   ├── login.js
+│   └── (other frontend files)
+│
+├── 📁 css/
+│   ├── style.css
+│   └── (other CSS files)
+│
+├── 📄 package.json               ← Dependencies list
+├── 📄 package-lock.json          ← Dependencies lock
+├── 📄 README.md
+├── 📄 .gitignore
+├── 📄 DEPLOY_KE_INDOWEBSITE.md  ← Panduan deployment
+├── 📄 00_BACA_INI_DULU_IND...   ← Start here
+│
+└── (other files & folders)
+
+
+═════════════════════════════════════════════════════════════════════════════
+COMMAND CHEAT SHEET - COPY PASTE
+═════════════════════════════════════════════════════════════════════════════
+
+Jika Anda ingin copy-paste semua commands sekaligus:
+
+────────────────────────────────────────────────────────────────────────────
+ssh arsipdig@mail.arsipdig.com
+────────────────────────────────────────────────────────────────────────────
+[ketik password]
+────────────────────────────────────────────────────────────────────────────
+
+Setelah berhasil SSH:
+
+────────────────────────────────────────────────────────────────────────────
+cd ~
+git clone https://github.com/donyp/arsiphosting.git
+cd arsiphosting
+npm install
+git status
+ls -la
+────────────────────────────────────────────────────────────────────────────
+
+
+═════════════════════════════════════════════════════════════════════════════
+⏱️ TOTAL TIME ESTIMATION
+═════════════════════════════════════════════════════════════════════════════
+
+SSH connection:           1 menit
+git clone:             5-15 menit
+npm install:           2-5 menit
+verification:          1 menit
+─────────────────────────────────────
+TOTAL:               9-22 menit (tergantung koneksi)
+
+
+═════════════════════════════════════════════════════════════════════════════
+✅ SETELAH SELESAI
+═════════════════════════════════════════════════════════════════════════════
+
+Aplikasi sudah di:
+  /home/arsipdig/arsiphosting/
+
+Sekarang lanjutkan dengan:
+  1. Setup .env file dengan Supabase credentials
+  2. Follow DEPLOY_KE_INDOWEBSITE.md
+  3. Deploy ke domain Anda
+
+
+═════════════════════════════════════════════════════════════════════════════
+
+BERHASIL! Sekarang ready untuk deployment. ✓
+
+═════════════════════════════════════════════════════════════════════════════

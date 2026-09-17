@@ -1,0 +1,317 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║              🌐 CARA GIT CLONE DI HOSTING INDOWEBSITE                    ║
+║                    Step-by-Step Guide                                    ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+📋 PRASYARAT
+═════════════════════════════════════════════════════════════════════════════
+
+✓ Sudah punya hosting Indowebsite
+✓ Sudah punya domain
+✓ Sudah punya SSH access (username & password)
+✓ Repository public: https://github.com/donyp/arsiphosting.git
+
+
+═══════════════════════════════════════════════════════════════════════════
+METODE 1: MENGGUNAKAN SSH (RECOMMENDED)
+═══════════════════════════════════════════════════════════════════════════
+
+STEP 1: Buka Terminal di Komputer Anda
+───────────────────────────────────────────────────────────────────────────
+
+Windows:
+  ├─ Buka PowerShell
+  │  (Start → Search "PowerShell" → Buka)
+  │
+  └─ Atau Command Prompt
+     (Start → Search "cmd" → Buka)
+
+Mac/Linux:
+  └─ Buka Terminal
+
+
+STEP 2: SSH ke Hosting Indowebsite
+───────────────────────────────────────────────────────────────────────────
+
+Command:
+  ssh username@mail.arsipdig.com
+
+Contoh lengkap:
+  PS C:\Users\YourName> ssh arsipdig@mail.arsipdig.com
+
+Ganti:
+  - username = username hosting Anda (biasanya email atau kode customer)
+  - mail.arsipdig.com = domain hosting Anda
+
+Input Password:
+  arsipdig@mail.arsipdig.com's password: [ketik password hosting]
+  
+Expected Output:
+  Last login: Thu Sep 17 10:30:00 2026 from 192.168.1.1
+  [arsipdig@hosting ~]$  ← Berhasil! Sekarang di server
+
+
+STEP 3: Navigate ke Home Directory
+───────────────────────────────────────────────────────────────────────────
+
+Command:
+  cd ~
+
+Verify:
+  pwd
+
+Expected Output:
+  /home/arsipdig
+
+
+STEP 4: GIT CLONE REPOSITORY
+───────────────────────────────────────────────────────────────────────────
+
+Command:
+  git clone https://github.com/donyp/arsiphosting.git
+
+Expected Output:
+  Cloning into 'arsiphosting'...
+  remote: Enumerating objects: 4808, done.
+  remote: Counting objects: 100% (4808/4808), done.
+  remote: Compressing objects: 100% (XXX/XXX), done.
+  Unpacking objects: 100% (4808/4808), done.
+  
+  ⏱️ Tunggu sampai selesai (5-15 menit tergantung kecepatan)
+
+
+STEP 5: Navigate ke Folder Aplikasi
+───────────────────────────────────────────────────────────────────────────
+
+Command:
+  cd arsiphosting
+
+Verify:
+  ls -la
+
+Expected Output:
+  total XXX
+  drwxr-xr-x XX arsipdig arsipdig date time .
+  drwxr-xr-x XX arsipdig arsipdig date time ..
+  -rw-r--r--  1 arsipdig arsipdig  XXX date time .env.example
+  -rw-r--r--  1 arsipdig arsipdig  XXX date time package.json
+  -rw-r--r--  1 arsipdig arsipdig  XXX date time README.md
+  drwxr-xr-x  X arsipdig arsipdig  XXX date time backend
+  drwxr-xr-x  X arsipdig arsipdig  XXX date time js
+  drwxr-xr-x  X arsipdig arsipdig  XXX date time css
+  ... (lebih banyak files)
+
+
+STEP 6: INSTALL NPM DEPENDENCIES
+───────────────────────────────────────────────────────────────────────────
+
+Command:
+  npm install
+
+Expected Output:
+  npm notice
+  npm notice created a lockfile as package-lock.json
+  npm notice
+  added 234 packages, and audited 235 packages in 3m 45s
+  
+  found 0 vulnerabilities
+
+⏱️ Tunggu sampai selesai (3-5 menit)
+
+
+STEP 7: VERIFY GIT STATUS
+───────────────────────────────────────────────────────────────────────────
+
+Command:
+  git status
+
+Expected Output:
+  On branch master
+  Your branch is up to date with 'origin/master'.
+  nothing to commit, working tree clean
+
+✓ Git clone berhasil!
+
+
+═══════════════════════════════════════════════════════════════════════════
+METODE 2: MENGGUNAKAN FILE MANAGER (CPANEL)
+═══════════════════════════════════════════════════════════════════════════
+
+Jika SSH tidak available, gunakan cPanel File Manager:
+
+STEP 1: Buka cPanel
+───────────────────────────────────────────────────────────────────────────
+
+1. Buka hosting control panel:
+   URL: https://mail.arsipdig.com:2083 (atau sesuai domain Anda)
+   
+2. Login dengan username & password hosting
+
+
+STEP 2: Upload Repository ke Hosting
+───────────────────────────────────────────────────────────────────────────
+
+Option A - Download sebagai ZIP, lalu upload:
+  1. Buka: https://github.com/donyp/arsiphosting
+  2. Klik: Code → Download ZIP
+  3. Simpan file ZIP
+  4. Buka cPanel File Manager
+  5. Navigate ke: public_html/
+  6. Upload file ZIP
+  7. Extract file ZIP (klik kanan → Extract)
+  8. Rename folder jika perlu
+
+Option B - Git clone via cPanel Terminal (jika tersedia):
+  1. Buka cPanel
+  2. Cari: Terminal atau Command Line
+  3. Jalankan: git clone https://github.com/donyp/arsiphosting.git
+  4. Selesai!
+
+
+═══════════════════════════════════════════════════════════════════════════
+QUICK COMMANDS - COPY PASTE KE TERMINAL
+═══════════════════════════════════════════════════════════════════════════
+
+Semua commands sekaligus:
+
+────────────────────────────────────────────────────────────────────────────
+ssh arsipdig@mail.arsipdig.com
+cd ~
+git clone https://github.com/donyp/arsiphosting.git
+cd arsiphosting
+npm install
+git status
+ls -la
+────────────────────────────────────────────────────────────────────────────
+
+Ganti:
+  - arsipdig = username hosting Anda
+  - mail.arsipdig.com = domain hosting Anda
+
+
+═══════════════════════════════════════════════════════════════════════════
+✅ SETELAH CLONE SELESAI
+═══════════════════════════════════════════════════════════════════════════
+
+Folder struktur:
+  /home/arsipdig/arsiphosting/
+  ├── backend/
+  │   ├── server.js
+  │   ├── .env.example
+  │   └── node_modules/
+  │
+  ├── js/
+  ├── css/
+  ├── package.json
+  ├── README.md
+  ├── DEPLOY_KE_INDOWEBSITE.md
+  ├── 00_BACA_INI_DULU_INDOWEBSITE.txt
+  └── (other files)
+
+Sekarang Anda di: /home/arsipdig/arsiphosting/
+
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 LANGKAH BERIKUTNYA
+═══════════════════════════════════════════════════════════════════════════
+
+1. Setup .env file dengan Supabase credentials:
+   
+   cd backend
+   cp .env.example .env
+   nano .env
+   
+   (Edit dengan Supabase URL dan Service Role Key)
+
+2. Lanjutkan deployment:
+   
+   Ikuti panduan di: DEPLOY_KE_INDOWEBSITE.md
+   atau: QUICK_DEPLOY_INDOWEBSITE.txt
+
+
+═══════════════════════════════════════════════════════════════════════════
+❓ TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════
+
+MASALAH 1: "git: command not found"
+─────────────────────────────────────────────────────────────────────────
+Solusi:
+  Git tidak terinstall di hosting
+  
+  Option 1: Contact support@indowebsite.com untuk install git
+  Option 2: Gunakan cPanel Terminal untuk git clone
+  Option 3: Download ZIP dari GitHub dan upload manual
+
+
+MASALAH 2: "Permission denied (publickey,password)"
+─────────────────────────────────────────────────────────────────────────
+Solusi:
+  Username atau password SSH salah
+  
+  ✓ Verifikasi username hosting
+  ✓ Verifikasi password hosting
+  ✓ Pastikan CAPS LOCK tidak aktif
+  ✓ Cek email dari Indowebsite untuk credentials
+
+
+MASALAH 3: "Connection timed out"
+─────────────────────────────────────────────────────────────────────────
+Solusi:
+  Koneksi ke server gagal
+  
+  ✓ Periksa internet connection Anda
+  ✓ Verifikasi domain/IP hosting benar
+  ✓ Tunggu beberapa saat lalu coba lagi
+  ✓ Contact Indowebsite support
+
+
+MASALAH 4: "npm: command not found"
+─────────────────────────────────────────────────────────────────────────
+Solusi:
+  Node.js tidak terinstall
+  
+  ✓ Contact support@indowebsite.com
+  ✓ Atau gunakan cPanel Application Manager
+  ✓ Atau verifikasi Node.js sudah terinstall: node -v
+
+
+MASALAH 5: "fatal: repository not found"
+─────────────────────────────────────────────────────────────────────────
+Solusi:
+  Repository URL salah atau tidak public
+  
+  ✓ Verifikasi URL: https://github.com/donyp/arsiphosting.git
+  ✓ Pastikan repository adalah PUBLIC
+  ✓ Cek typo di URL
+
+
+═══════════════════════════════════════════════════════════════════════════
+📞 SUPPORT
+═══════════════════════════════════════════════════════════════════════════
+
+Indowebsite Support:
+  Email: support@indowebsite.com
+  Portal: https://indowebsite.com
+  Chat: Via cPanel
+
+
+═══════════════════════════════════════════════════════════════════════════
+✨ TIPS
+═══════════════════════════════════════════════════════════════════════════
+
+✓ Jangan close terminal sampai clone selesai
+✓ npm install akan otomatis jalankan
+✓ Setelah clone, langsung setup .env file
+✓ Keep terminal open untuk step berikutnya
+✓ Jika disconnect, Anda bisa reconnect dan continue
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+SELESAI! Sekarang aplikasi sudah di hosting. ✓
+
+Lanjutkan dengan: DEPLOY_KE_INDOWEBSITE.md
+
+═══════════════════════════════════════════════════════════════════════════
