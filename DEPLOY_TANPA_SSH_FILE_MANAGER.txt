@@ -1,0 +1,343 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║          🌐 DEPLOY TANPA SSH - MENGGUNAKAN FILE MANAGER                  ║
+║              (cPanel → File Manager → Upload & Extract)                  ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+📋 SOLUSI TERBAIK (TANPA SSH)
+═════════════════════════════════════════════════════════════════════════════
+
+Karena tidak ada Terminal di cPanel, kita gunakan:
+  ✓ File Manager (untuk upload/extract)
+  ✓ Softaculous (untuk install Node.js jika perlu)
+  ✓ Manual file setup
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 1: DOWNLOAD REPOSITORY DARI GITHUB
+═══════════════════════════════════════════════════════════════════════════
+
+Di komputer Anda:
+
+1. Buka: https://github.com/donyp/arsiphosting
+
+2. Klik tombol "Code" (warna hijau)
+
+3. Pilih "Download ZIP"
+
+4. Tunggu download selesai
+
+5. Simpan file: arsiphosting.zip
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 2: BUKA FILE MANAGER DI CPANEL
+═══════════════════════════════════════════════════════════════════════════
+
+1. Login ke cPanel:
+   https://arsipdigitalanka.my.id:2083
+
+2. Cari dan klik: "File Manager"
+
+3. Akan membuka file browser
+
+Expected view:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ File Manager                                                             │
+│                                                                         │
+│ Home Folder     📁 public_html                                          │
+│                  📁 mail                                                │
+│                  📁 logs                                                │
+│                  📁 tmp                                                 │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 3: NAVIGATE KE PUBLIC_HTML
+═══════════════════════════════════════════════════════════════════════════
+
+1. Double-click folder: "public_html"
+
+2. Sekarang Anda di: /public_html/
+
+3. Ini adalah root folder website Anda
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 4: UPLOAD FILE ZIP
+═══════════════════════════════════════════════════════════════════════════
+
+Di File Manager:
+
+1. Cari tombol "Upload" 
+   (biasanya di atas, atau bisa klik kanan → Upload)
+
+2. Pilih file: arsiphosting.zip (dari komputer Anda)
+
+3. Upload
+
+Progress bar akan muncul:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Uploading arsiphosting.zip                                              │
+│ ████████████░░░░░░░░░░░░░░░░  45%                                       │
+│                                                                         │
+│ Tunggu sampai 100%...                                                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+⏱️ Waktu: 5-20 menit (tergantung ukuran & koneksi)
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 5: EXTRACT FILE ZIP
+═══════════════════════════════════════════════════════════════════════════
+
+Setelah upload selesai:
+
+1. Klik kanan pada file: arsiphosting.zip
+
+2. Pilih: "Extract"
+
+3. Tekan tombol "Extract File(s)"
+
+Progress:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Extracting arsiphosting.zip                                             │
+│ ████████████████████░░░░░░░░░░  70%                                     │
+│                                                                         │
+│ Tunggu sampai selesai...                                                │
+└─────────────────────────────────────────────────────────────────────────┘
+
+⏱️ Waktu: 2-5 menit
+
+Setelah selesai, Anda akan lihat folder: "arsiphosting"
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 6: VERIFY FOLDER STRUKTUR
+═══════════════════════════════════════════════════════════════════════════
+
+Buka folder "arsiphosting":
+
+Anda harus lihat:
+  ✅ backend/              (folder)
+  ✅ js/                   (folder)
+  ✅ css/                  (folder)
+  ✅ package.json          (file)
+  ✅ README.md             (file)
+  ✅ .env.example          (file)
+  ✅ Dokumentasi files
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 7: SETUP .ENV FILE
+═══════════════════════════════════════════════════════════════════════════
+
+1. Navigate ke: /public_html/arsiphosting/backend/
+
+2. Lihat file: .env.example
+
+3. Klik kanan pada .env.example → Copy
+
+4. Klik kanan → Paste
+
+5. Rename copy menjadi: .env
+
+   (Atau gunakan Rename)
+
+6. Klik kanan pada .env → Edit
+
+7. Edit isi file dengan Supabase credentials:
+
+   PORT=8080
+   NODE_ENV=production
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...
+   JWT_SECRET=your-secret-here
+   SESSION_SECRET=your-session-secret
+   ALLOWED_ORIGINS=https://arsipdigitalanka.my.id
+
+8. Save file
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 8: SETUP NODE.JS & NPM (JIKA PERLU)
+═══════════════════════════════════════════════════════════════════════════
+
+Cek apakah Node.js & npm sudah installed:
+
+Option 1 - Gunakan Softaculous:
+  1. Buka cPanel
+  2. Cari: "Softaculous" atau "Script Installers"
+  3. Search: "Node.js"
+  4. Install (jika belum ada)
+
+Option 2 - Contact Support:
+  Email: support@indowebsite.com
+  Minta: "Install Node.js dan npm di account saya"
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 9: INSTALL NPM DEPENDENCIES
+═══════════════════════════════════════════════════════════════════════════
+
+Ini adalah step yang memerlukan terminal/SSH.
+
+Jika tidak ada terminal, Anda punya 2 pilihan:
+
+PILIHAN 1 - Contact Support (RECOMMENDED):
+  Email: support@indowebsite.com
+  
+  Request:
+  "Saya butuh membantu install Node.js dependencies.
+   Path: /home/arsipdig/public_html/arsiphosting/
+   Command: npm install"
+  
+  Support akan jalankan untuk Anda.
+
+PILIHAN 2 - Gunakan PM2 atau alternatif:
+  Jika npm sudah installed, coba:
+  1. Buat file: install.sh di root /arsiphosting/
+  2. Isi dengan: npm install
+  3. Jalankan via Softaculous atau scheduler
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 10: SETUP PM2 (START APPLICATION)
+═══════════════════════════════════════════════════════════════════════════
+
+Sama seperti Step 9, ini perlu terminal.
+
+Contact support:
+  Email: support@indowebsite.com
+  
+  Request:
+  "Saya butuh setup PM2 untuk auto-start Node.js app.
+   Path: /home/arsipdig/public_html/arsiphosting/
+   Main file: backend/server.js
+   Port: 8080"
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 11: SETUP DOMAIN & REVERSE PROXY
+═══════════════════════════════════════════════════════════════════════════
+
+1. Buka cPanel
+
+2. Klik: "Addon Domains" (di Domains section)
+
+3. Add domain:
+   - Domain: arsipdigitalanka.my.id
+   - Document Root: /public_html/arsiphosting/
+
+4. Setup .htaccess:
+   - Buka File Manager
+   - Navigate ke: /public_html/arsiphosting/
+   - Create file: .htaccess
+   - Isi dengan:
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ http://localhost:8080/$1 [P,L]
+</IfModule>
+
+5. Save
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 12: SETUP SSL CERTIFICATE
+═══════════════════════════════════════════════════════════════════════════
+
+1. Buka cPanel
+
+2. Klik: "AutoSSL" atau "Let's Encrypt"
+
+3. Pilih domain: arsipdigitalanka.my.id
+
+4. Install certificate
+
+5. Force HTTPS (jika ada opsi)
+
+
+═══════════════════════════════════════════════════════════════════════════
+📋 RINGKASAN - LANGKAH YANG BISA MANUAL VIA FILE MANAGER
+═══════════════════════════════════════════════════════════════════════════
+
+✅ Bisa manual:
+  1. Download ZIP dari GitHub
+  2. Upload ke File Manager
+  3. Extract file
+  4. Setup .env file
+  5. Setup domain & .htaccess
+  6. Setup SSL
+
+❌ Butuh SSH/Terminal:
+  1. npm install
+  2. PM2 setup
+  3. Generate secrets
+
+Untuk step yang butuh terminal, contact support.
+
+
+═══════════════════════════════════════════════════════════════════════════
+📞 EMAIL TEMPLATE UNTUK SUPPORT
+═══════════════════════════════════════════════════════════════════════════
+
+Kirim email ke: support@indowebsite.com
+
+---
+
+Subject: Setup Node.js Application - Help Needed
+
+Body:
+
+Halo support,
+
+Saya butuh bantuan untuk setup Node.js application di hosting saya.
+
+Account: arsipdig
+Domain: arsipdigitalanka.my.id
+
+Application path: /home/arsipdig/public_html/arsiphosting/
+Main file: backend/server.js
+Port: 8080
+
+Yang perlu dibantu:
+1. Jalankan: npm install (di folder /arsiphosting/)
+2. Setup PM2 untuk auto-start application
+3. Verify Node.js & npm sudah installed
+
+Repository: https://github.com/donyp/arsiphosting
+
+Terima kasih!
+
+---
+
+
+═══════════════════════════════════════════════════════════════════════════
+✨ SETUP COMPLETE CHECKLIST
+═══════════════════════════════════════════════════════════════════════════
+
+Manual (File Manager):
+  [ ] Download repository ZIP
+  [ ] Upload ke public_html
+  [ ] Extract folder
+  [ ] Setup .env file
+  [ ] Setup .htaccess
+  [ ] Setup domain (cPanel)
+  [ ] Setup SSL (cPanel)
+
+Perlu Support:
+  [ ] npm install
+  [ ] PM2 setup
+  [ ] Node.js/npm verification
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+NEXT: Contact support untuk npm install & PM2 setup.
+
+═══════════════════════════════════════════════════════════════════════════
